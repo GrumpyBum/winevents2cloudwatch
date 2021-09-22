@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Creates the IAM Account and Log Groups for Cloud Watch Logs from WorkSapces Events'
+
+Parameters:
+  TechnicalOwner:
+    Description: Email address of main technical contact
+    Type: String
+  BusinessOwner:
+    Description: Email address of main business contact
+    Type: String
+
+Resources: 
+  SecurityLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: WorkSpaces-Security-Logs
+      RetentionInDays: 400
+  
+  SystemLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: WorkSpaces-System-Logs
+      RetentionInDays: 400
+
+  ApplicationLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: WorkSpaces-Application-Logs
+      RetentionInDays: 400
+  
+  CloudWatchAgentUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: CloudWatchAgent
+      Policies:
+        - PolicyName: cloudwatch-agent-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+                - "logs:ListTagsLogGroup"
+                - "logs:GetLogRecord"
+                - "logs:DescribeLogStreams"
+                - "logs:DescribeSubscriptionFilters"
+                - "logs:StartQuery"
+                - "logs:DescribeMetricFilters"
+                - "logs:GetLogDelivery"
+                - "logs:ListLogDeliveries"
+                - "logs:CreateExportTask"
+                - "logs:CreateLogStream"
+                - "logs:CancelExportTask"
+                - "logs:GetLogEvents"
+                - "logs:AssociateKmsKey"
+                - "logs:FilterLogEvents"
+                - "logs:DescribeQueryDefinitions"
+                - "logs:PutDestination"
+                - "logs:DescribeResourcePolicies"
+                - "logs:DescribeDestinations"
+                - "logs:DescribeQueries"
+                - "logs:DisassociateKmsKey"
+                - "logs:DescribeLogGroups"
+                - "logs:PutDestinationPolicy"
+                - "logs:StopQuery"
+                - "logs:TestMetricFilter"
+                - "logs:PutQueryDefinition"
+                - "logs:PutLogEvents"
+                - "logs:PutMetricFilter"
+                - "logs:CreateLogDelivery"
+                - "logs:DescribeExportTasks"
+                - "logs:GetQueryResults"
+                - "logs:UpdateLogDelivery"
+                - "logs:PutSubscriptionFilter"
+                - "logs:PutRetentionPolicy"
+                - "logs:GetLogGroupFields"
+              Resource:
+                - !GetAtt SecurityLogsGroup.Arn
+                - !GetAtt SystemLogsGroup.Arn
+                - !GetAtt ApplicationLogsGroup.Arn
+      Tags: 
+        - Key: technical_contact
+          Value: !Ref TechnicalOwner
+        - Key: business_contact
+          Value: !Ref BusinessOwner

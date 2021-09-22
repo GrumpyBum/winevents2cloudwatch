@@ -1,0 +1,10 @@
+[
+    {
+      "ParameterKey": "TechnicalOwner",
+      "ParameterValue": "techowner@mydomain.com"
+    },
+    {
+      "ParameterKey": "BusinessOwner",
+      "ParameterValue": "busowner@mydomain.com"
+    }
+]
