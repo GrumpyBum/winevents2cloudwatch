@@ -8,9 +8,9 @@
         Finally this starts the CloudWatch Agent and sees logs sent to CloudWatch
     .NOTES
         THIS SCRIPT MUST BE RUN AS ADMIN (Use '-Verb RunAs')
-        Author        :   https://github.com/GrumpyBum
+        Author        :   https://www.linkedin.com/in/jaradclouston/
         Peer Review   :   https://www.linkedin.com/in/dineshsharma2511/
-        Last Update   :   22nd September 2021
+        Last Update   :   Wednesday 22nd September 2021
         Environment   :   GitHub Demo Script Only
         Documentation :   https://github.com/GrumpyBum/winevents2cloudwatch#readme
 #>
